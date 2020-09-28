@@ -9,6 +9,10 @@ def print_hi(name):
     print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
 
+
+def bind_on_the_basis_of_comp(comparison_function, a,b):
+    if(comparison_function(a)==comparison_function(b)):
+        print('do something')
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print_hi('PyCharm')
