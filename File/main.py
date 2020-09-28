@@ -10,9 +10,12 @@ def print_hi(name):
 
 
 
-def bind_on_the_basis_of_comp(comparison_function, a,b):
-    if(comparison_function(a)==comparison_function(b)):
-        print('do something')
+def bind_on_the_basis_of_comp(f1,
+                              f2,
+                              a,b):
+    if(f1(a)==f2(b)):
+        a.imbue_with_tag(b)
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print_hi('PyCharm')
