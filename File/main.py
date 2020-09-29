@@ -19,12 +19,20 @@ def read_them_out(filename):
 
 def consolidate_gladiators(the_list_of_gladiators, tag_for_deletion="PROCESSED_AND_PENDING_FOR_DELETION"):
     for index,current_Gladiator in enumerate(the_list_of_gladiators):
+        if(index>10000):
+            break
         for other_Gladiator in the_list_of_gladiators[(index+1):]:
-            if other_Gladiator.name==tag_for_deletion:
-                continue
-            if current_Gladiator==other_Gladiator:
-                current_Gladiator.join(other_Gladiator)
-                other_Gladiator.name=tag_for_deletion
+            if(index%100==0):
+                print(index)
+
+            try:
+                if other_Gladiator.name==tag_for_deletion:
+                    continue
+                if current_Gladiator==other_Gladiator:
+                    current_Gladiator.join(other_Gladiator)
+                    other_Gladiator.name=tag_for_deletion
+            except Exception as error:
+                print("This has occured %s", error)
     return deletion(the_list_of_gladiators,tag_for_deletion)
 def deletion(the_list_of_gladiators, eraser_tag):
     return [x for x in the_list_of_gladiators if x.name!=eraser_tag]
@@ -37,12 +45,14 @@ def bind_on_the_basis_of_comp(f1,f2,a,b):
         a.imbue_with_tag(b)
 
 # Press the green button in the gutter to run the script.
-
 print_hi('PyCharm')
 line = 'DECIMUS_MERIDIUS [GENERAL,GLADIATOR] [WIFE,SON]'
 The_gladiator = Element()
 the_list_of_gladiators = read_them_out('Tag_class/split_the_grave.txt')
 the_list_of_gladiators = consolidate_gladiators(the_list_of_gladiators)
-for gladiator in the_list_of_gladiators:
-    print(str(gladiator))
+with open('grave.txt','w') as f:
+    for gladiator in the_list_of_gladiators:
+        print(str(gladiator))
+        f.write(str(gladiator))
+        f.write('\n')
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
