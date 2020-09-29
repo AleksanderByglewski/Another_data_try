@@ -1,4 +1,12 @@
+def f7(seq):
+    seen = set()
+    seen_add = seen.add
+    return [x for x in seq if not (x in seen or seen_add(x))]
+
 class Element():
+    def refit(self):
+        self.tag_list=f7(self.tag_list)
+        self.email_list=f7(self.email_list)
 
     def __init__(self, name='', tag_list=None, email_list=None):
         self.specializer(name, tag_list, email_list)
@@ -14,6 +22,7 @@ class Element():
             self.email_list = email_list
 
     def __repr__(self):
+        self.refit()
         expr = self.name
         expr += ' ['
         special_sep = ''
@@ -46,8 +55,6 @@ class Element():
             return True
         return False
 
-line = 'DECIMUS_MERIDIUS [GENERAL,GLADIATOR] [WIFE,SON]'
-The_gladiator = Element()
 
 
 #The_gladiator.read_in(line)
@@ -58,36 +65,6 @@ The_gladiator = Element()
 
 #    print(The_gladiator)
 
-def read_them_out(filename):
-    list=[]
-    with open(filename,'r') as f:
-        for line in f:
-            The_gladiator=Element()
-            The_gladiator.read_in(line)
-            list.append(The_gladiator)
-    return list
-
-def consolidate_gladiators(the_list_of_gladiators, tag_for_deletion="PROCESSED_AND_PENDING_FOR_DELETION"):
-    for index,current_Gladiator in enumerate(the_list_of_gladiators):
-        for other_Gladiator in the_list_of_gladiators[(index+1):]:
-            if other_Gladiator.name==tag_for_deletion:
-                continue
-            if current_Gladiator==other_Gladiator:
-                current_Gladiator.join(other_Gladiator)
-                other_Gladiator.name=tag_for_deletion
-    deletion(the_list_of_gladiators,tag_for_deletion)
-def deletion(the_list_of_gladiators, eraser_tag):
-    return [x for x in the_list_of_gladiators if x.name!=eraser_tag]
-    #print(the_list_of_gladiators)
-
-
-the_list_of_gladiators=read_them_out('split_the_grave.txt')
-consolidate_gladiators(the_list_of_gladiators)
-
-with open('grave.txt', 'w') as f:
-    for gladiator in the_list_of_gladiators:
-        f.write(str(gladiator))
-        f.write('\n')
 
 class Tag_Element():
     def __init__(self, x, y):
